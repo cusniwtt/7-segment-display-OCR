@@ -1,11 +1,11 @@
 # Get required libraries
 import cv2
 import numpy as np
-import pytesseract as pt
+import pytesseract
 
 # Define Functions
 def ocr_core(img):
-    text = pt.image_to_string(img)
+    text = pytesseract.image_to_string(img)
     return text
 
 def get_grey_scale(img):
