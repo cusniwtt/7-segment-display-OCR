@@ -15,11 +15,11 @@ def remove_noise(img):
     return cv2.medianBlur(img, 5)
 
 def thresholding(img):
-    return cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    return cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
 # Main steps
 
-image = cv2.imread('Image Test/t01.png')
+image = cv2.imread('Image Test/t03.png')
 cv2.imshow('Original', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -31,5 +31,4 @@ cv2.imshow('Preprocessing', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
-text = ocr_core(image)
-print(text)
+print('OCR output: ', ocr_core(image))
