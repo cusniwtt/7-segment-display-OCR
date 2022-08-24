@@ -78,7 +78,7 @@ for c in cnts:
     if w >= 30 and (h >=80  and h <= 115):
         rec = cv2.rectangle(img_plot, (x, y), (x + w, y + h), (255, 255, 255), 2)
         digitCnts.append(c)
-cv2.imshow('Contours 1', rec)
+cv2.imshow('Contour', rec)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
