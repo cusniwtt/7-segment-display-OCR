@@ -23,6 +23,44 @@ DIGITS_LOOKUP = {
 	(1, 1, 1, 1, 0, 1, 1): 9
 }
 
+# Function setup
+
+## Apply contrast stretching
+def contrast_stretching(img, alpha=2, beta=-1):
+	img_con = cv2.convertScaleAbs(img, alpha=alpha, beta=beta)
+	cv2.imshow('Contrast', img_con)
+	cv2.waitKey(0)
+	cv2.destroyAllWindows()
+	return img_con
+
+## Set Threshold
+### Gausian blur + Osthu threshold
+def thresholding(img):
+	blur = cv2.GaussianBlur(img, (5,5), 0)
+	img_gthr = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+	cv2.imshow('Gaussian Threshold', img_gthr)
+	cv2.waitKey(0)
+	cv2.destroyAllWindows()
+	return img_gthr
+
+#Set Opening
+def opening(img):
+	kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 5))
+	img_opn = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+	cv2.imshow('Opening', img_opn)
+	cv2.waitKey(0)
+	cv2.destroyAllWindows()
+	return img_opn
+
+#Plot Histogram of image
+def plot(img):
+	plt.hist(img.ravel(), 256, [0,256], color='crimson')
+	plt.ylabel("Number Of Pixels", color='crimson')
+	plt.xlabel("Pixel Intensity- From 0-255", color='crimson')
+	plt.title("Histogram Showing Pixel Intensity And Corresponding Number Of Pixels", color='crimson')
+	plt.show()
+
+
 #Read the image
 img = cv2.imread('Image Test/t01.png', 0)
 img = imutils.resize(img, height=244, width=244)
@@ -30,40 +68,6 @@ print(img.shape)
 cv2.imshow('Original', img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-#Apply contrast stretching
-alpha = 2
-beta = -1
-img_con = cv2.convertScaleAbs(img, alpha=alpha, beta=beta)
-cv2.imshow('Contrast', img_con)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-
-#Set Threshold
-###Gausian blur + Osthu threshold
-blur = cv2.GaussianBlur(img_con, (5,5), 0)
-img_gthr = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
-cv2.imshow('Gaussian Threshold', img_gthr)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-img_thr = img_gthr
-
-#Set Opening
-kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (1, 5))
-img_opn = cv2.morphologyEx(img_thr, cv2.MORPH_OPEN, kernel)
-cv2.imshow('Opening', img_opn)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-
-#Image to plot
-img_plot = img_thr
-
-#Plot Histogram of image
-#plt.hist(img_plot.ravel(), 256, [0,256], color='crimson')
-#plt.ylabel("Number Of Pixels", color='crimson')
-#plt.xlabel("Pixel Intensity- From 0-255", color='crimson')
-#plt.title("Histogram Showing Pixel Intensity And Corresponding Number Of Pixels", color='crimson')
-#plt.show()
 
 # find contours in the thresholded image, then initialize the
 # digit contours lists
