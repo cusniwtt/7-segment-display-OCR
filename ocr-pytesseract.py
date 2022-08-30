@@ -37,7 +37,7 @@ def dilating(img):
 
 # Main steps
 
-image = cv2.imread('Image Test/t01.png')
+image = cv2.imread('Image Test/t03.png')
 image = imutils.resize(image, height=244, width=244)
 cv2.imshow('Original', image)
 cv2.waitKey(0)
